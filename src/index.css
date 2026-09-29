@@ -1,0 +1,179 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background: #05060A;
+    color: #F2F3F5;
+    font-family: 'Inter', system-ui, sans-serif;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: rgba(62, 198, 224, 0.3);
+    color: #F2F3F5;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #05060A;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1A1F30;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #2C8FBF;
+  }
+}
+
+@layer components {
+  /* Stage number badge — mono, amber glow */
+  .stage-badge {
+    @apply font-mono text-sm font-semibold tracking-wider uppercase;
+    color: #F5A623;
+    text-shadow: 0 0 20px rgba(245, 166, 35, 0.3);
+  }
+
+  /* Metric value — large mono cyan */
+  .metric-value {
+    @apply font-mono text-3xl font-semibold tracking-tight;
+    color: #3EC6E0;
+  }
+
+  /* Section divider — faint horizontal rule */
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      #1A1F30 20%,
+      #1A1F30 80%,
+      transparent 100%
+    );
+  }
+
+  /* Glass surface card */
+  .glass-card {
+    background: rgba(11, 14, 23, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(26, 31, 48, 0.6);
+  }
+
+  /* Glow line — left-edge accent */
+  .glow-line-amber {
+    position: relative;
+  }
+  .glow-line-amber::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, #F5A623, #E8871E);
+    box-shadow: 0 0 12px rgba(245, 166, 35, 0.4);
+  }
+
+  .glow-line-cyan {
+    position: relative;
+  }
+  .glow-line-cyan::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, #3EC6E0, #2C8FBF);
+    box-shadow: 0 0 12px rgba(62, 198, 224, 0.4);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Starfield canvas behind hero */
+#starfield-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Comparison slider thumb custom styling */
+.comparison-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 4px;
+  height: 100%;
+  background: #3EC6E0;
+  cursor: ew-resize;
+  border: none;
+  box-shadow: 0 0 12px rgba(62, 198, 224, 0.5);
+}
+
+/* Grain/noise overlay — fixed full-viewport */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+}
+.grain-overlay svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Scoped crosshair cursor — comparison viewer only */
+.reticle-cursor {
+  position: absolute;
+  pointer-events: none;
+  z-index: 30;
+  width: 28px;
+  height: 28px;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.comparison-area:hover .reticle-cursor,
+.comparison-area.is-dragging .reticle-cursor {
+  opacity: 1;
+}
+.comparison-area {
+  cursor: none;
+}
+
+/* Bottom padding for ticker */
+body {
+  padding-bottom: 24px;
+}
+
+/* Iris transition helper */
+.iris-section {
+  will-change: clip-path;
+}
